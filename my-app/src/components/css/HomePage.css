@@ -1,0 +1,28 @@
+.quizzes_map {
+    border: 1px solid black;
+    border-radius: 1em;
+    display: flex;
+    overflow-x: auto;        
+    padding: 10px;           
+    gap: 15px;               
+    scrollbar-width: thin;   
+  }
+  
+  .quizzes_map::-webkit-scrollbar {
+    height: 8px;            
+  }
+  
+  .quizzes_map::-webkit-scrollbar-thumb {
+    background: #888;       
+    border-radius: 10px;     
+  }
+  
+  .quizzes_map::-webkit-scrollbar-thumb:hover {
+    background: #555;        
+  }
+  .dash_header{
+    background:black;
+    color:white;
+
+  }
+  

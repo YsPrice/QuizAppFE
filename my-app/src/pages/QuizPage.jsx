@@ -80,6 +80,7 @@ const TakeQuiz = () => {
     const isCorrect = currentQuestion.options.find((option) => option.id === selectedOption)?.isCorrect;
     dispatch(setAnswer({ questionId: currentQuestion.id, selectedOptionId: selectedOption, isCorrect }));
     dispatch(completeQuiz({ quizId: id })); 
+    
   };
 
   if (isComplete) {

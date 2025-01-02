@@ -9,7 +9,7 @@ export const graphqlRequest = async (query, variables, authRequired = false) => 
     }
   }
 
-  const response = await fetch(import.meta.env.VITE_GRAPHQL_ENDPOINT || "http://localhost:4000/graphql", {
+  const response = await fetch(import.meta.env.VITE_GRAPHQL_ENDPOINT, {
     method: "POST",
     headers,
     body: JSON.stringify({ query, variables }),

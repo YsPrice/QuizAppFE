@@ -18,5 +18,5 @@ export default defineConfig({
       '@': '/src', // Allows for '@' imports to resolve to '/src'
     },
   },
-  base: './', // Relative base path for Vite
+  base: '/', // Relative base path for Vite
 });

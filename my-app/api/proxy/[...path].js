@@ -11,15 +11,18 @@ export const config = {
     // Log the entire query object for debugging
     console.log('Request Query:', req.query);
   
-    const { path } = req.query; // Should capture the path as an array
+    // Access the '...path' key directly
+    const backendPath = req.query['...path'];
   
-    // Log the extracted path
-    console.log('Extracted Path:', path);
+    // Log the extracted backend path
+    console.log('Backend Path:', backendPath);
   
-    const backendPath = Array.isArray(path) ? path.join('/') : path; // Reconstruct the path
-  
-    // Log the reconstructed backend path
-    console.log('Reconstructed Backend Path:', backendPath);
+    // Validate the backendPath
+    if (!backendPath) {
+      console.error('No path provided in the request.');
+      res.status(400).json({ error: 'Bad Request: Missing path parameter.' });
+      return;
+    }
   
     // Construct the backend URL
     const backendUrl = `http://myquizapp.34.54.208.253.nip.io/${backendPath}${req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : ''}`;
@@ -45,6 +48,7 @@ export const config = {
       // Log the forwarded headers
       console.log('Forwarded Headers:', forwardedHeaders);
   
+      // Forward the request to the backend
       const response = await fetch(backendUrl, {
         method: req.method,
         headers: {

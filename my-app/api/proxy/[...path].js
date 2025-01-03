@@ -1,4 +1,5 @@
-// pages/api/proxy/[...path].js
+// For Next.js projects: pages/api/proxy/[...path].js
+// For standard Vercel serverless functions: api/proxy/[...path].js
 
 export const config = {
     api: {
@@ -7,10 +8,20 @@ export const config = {
   };
   
   export default async function handler(req, res) {
-    const { path } = req.query; // Captures all subpaths as an array
+    // Log the entire query object for debugging
+    console.log('Request Query:', req.query);
+  
+    const { path } = req.query; // Should capture the path as an array
+  
+    // Log the extracted path
+    console.log('Extracted Path:', path);
+  
     const backendPath = Array.isArray(path) ? path.join('/') : path; // Reconstruct the path
   
-    // Construct the backend URL by appending the captured path and query parameters
+    // Log the reconstructed backend path
+    console.log('Reconstructed Backend Path:', backendPath);
+  
+    // Construct the backend URL
     const backendUrl = `http://myquizapp.34.54.208.253.nip.io/${backendPath}${req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : ''}`;
   
     console.log(`Proxying request to: ${backendUrl}`);
@@ -31,6 +42,9 @@ export const config = {
       // Exclude headers that can cause issues when forwarding
       const { host, connection, 'content-length': contentLength, ...forwardedHeaders } = req.headers;
   
+      // Log the forwarded headers
+      console.log('Forwarded Headers:', forwardedHeaders);
+  
       const response = await fetch(backendUrl, {
         method: req.method,
         headers: {
@@ -46,7 +60,7 @@ export const config = {
   
       // Forward response headers to the client, excluding problematic headers
       response.headers.forEach((value, key) => {
-        if (key.toLowerCase() === 'transfer-encoding') return; // Exclude 'transfer-encoding' header
+        if (key.toLowerCase() === 'transfer-encoding') return;
         res.setHeader(key, value);
       });
   

@@ -13,16 +13,14 @@ export default defineConfig({
     open: true,
     port: 5173,
     host: true,
-    historyApiFallback: true, // Ensure React Router works locally
-  },
-  server: {
+    historyApiFallback: true, 
     proxy: {
       '/graphql': {
         target: 'https://my-quizapp-app.fyi', // Replace with your backend URL
         changeOrigin: true, // This will ensure the origin is correct for the target server
         rewrite: (path) => path.replace(/^\/graphql/, '/graphql'), // Adjust the path if needed
       },
-    },
+  },
   },
   resolve: {
     alias: {

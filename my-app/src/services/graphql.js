@@ -31,12 +31,12 @@ export const graphqlRequest = async (query, variables = {}, authRequired = false
   }
 
   try {
-    // Send the request to the API
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ query, variables }),
-    });
+const response = await fetch(endpoint, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ query, variables }),
+  mode: 'cors', // Ensure the request is sent with CORS mode
+});
 
     // Check if the response status is not OK
     if (!response.ok) {

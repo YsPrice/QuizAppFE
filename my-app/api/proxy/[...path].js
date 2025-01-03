@@ -1,14 +1,13 @@
-// api/proxy/[...path].js
+// pages/api/proxy/[...path].js
 
-// Disable automatic body parsing
 export const config = {
     api: {
-      bodyParser: false,
+      bodyParser: false, // Disable automatic body parsing
     },
   };
   
   export default async function handler(req, res) {
-    const { path } = req.query; // Captures all subpaths
+    const { path } = req.query; // Captures all subpaths as an array
     const backendPath = Array.isArray(path) ? path.join('/') : path; // Reconstruct the path
   
     // Construct the backend URL by appending the captured path and query parameters
@@ -29,7 +28,7 @@ export const config = {
         req.on('error', err => reject(err));
       });
   
-      // Exclude certain headers that can cause issues when forwarding
+      // Exclude headers that can cause issues when forwarding
       const { host, connection, 'content-length': contentLength, ...forwardedHeaders } = req.headers;
   
       const response = await fetch(backendUrl, {
@@ -47,7 +46,7 @@ export const config = {
   
       // Forward response headers to the client, excluding problematic headers
       response.headers.forEach((value, key) => {
-        if (key.toLowerCase() === 'transfer-encoding') return;
+        if (key.toLowerCase() === 'transfer-encoding') return; // Exclude 'transfer-encoding' header
         res.setHeader(key, value);
       });
   

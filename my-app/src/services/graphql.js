@@ -1,4 +1,4 @@
-// my-app/src/services/graphql.js
+// src/services/graphql.js
 
 export const graphqlRequest = async (query, variables, authRequired = false) => {
   const headers = { "Content-Type": "application/json" };
@@ -11,8 +11,8 @@ export const graphqlRequest = async (query, variables, authRequired = false) => 
     }
   }
 
-  // Use the proxy endpoint from environment variables
-  const endpoint = import.meta.env.VITE_GRAPHQL_PROXY_ENDPOINT || '/api/proxy/graphql';
+  // Use the absolute proxy endpoint
+  const endpoint = '/api/proxy/graphql'; // Correct absolute path
 
   const response = await fetch(endpoint, {
     method: "POST",

@@ -20,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/account" element={<AccountInfoPage />} />
         <Route path="/search" element={<SearchPage />} />
+        
 
       </Routes>
     </Router>

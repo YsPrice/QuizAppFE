@@ -1,3 +1,5 @@
+
+
 export const graphqlRequest = async (query, variables, authRequired = false) => {
   const headers = { "Content-Type": "application/json" };
   if (authRequired) {
@@ -9,7 +11,10 @@ export const graphqlRequest = async (query, variables, authRequired = false) => 
     }
   }
 
-  const response = await fetch(import.meta.env.VITE_GRAPHQL_ENDPOINT, {
+  // Update the endpoint to use the proxy
+  const endpoint = import.meta.env.VITE_GRAPHQL_PROXY_ENDPOINT ||'../../api/proxy'; 
+
+  const response = await fetch(endpoint, {
     method: "POST",
     headers,
     body: JSON.stringify({ query, variables }),
@@ -25,4 +30,4 @@ export const graphqlRequest = async (query, variables, authRequired = false) => 
   return result.data;
 };
 
-export default graphqlRequest
+export default graphqlRequest;
